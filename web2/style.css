@@ -1,0 +1,35 @@
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.block {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px 0;
+    border-bottom: 2px solid black;
+}
+.block p {
+    margin: 0 20px 20px 20px;
+    text-align: center;
+}
+.block h2 {
+    margin-top: 0;
+}
+.block:last-child {
+    margin: 0;
+    border-bottom: none;
+}
+.block:first-child {
+    padding-top: 0;
+}
