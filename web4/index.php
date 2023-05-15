@@ -14,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $errors['email2'] = !empty($_COOKIE['email_error2']);
   $errors['year1'] = !empty($_COOKIE['year_error1']);
   $errors['year2'] = !empty($_COOKIE['year_error2']);
-  $errors['gender1'] = !empty($_COOKIE['gender_error1']);
-  $errors['gender2'] = !empty($_COOKIE['gender_error2']);
+  $errors['sex1'] = !empty($_COOKIE['sex_error1']);
+  $errors['sex2'] = !empty($_COOKIE['sex_error2']);
   $errors['hand1'] = !empty($_COOKIE['hand_error1']);
   $errors['hand2'] = !empty($_COOKIE['hand_error2']);
   $errors['abilities1'] = !empty($_COOKIE['abilities_error1']);
@@ -42,13 +42,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     setcookie('year_error2', '', 100000);
     $messages['year2'] = '<p class="msg">Вам должно быть 14 лет</p>';
   }
-  if ($errors['gender1']) {
-    setcookie('gender_error1', '', 100000);
-    $messages['gender1'] = '<p class="msg">Выберите пол</p>';
+  if ($errors['sex1']) {
+    setcookie('sex_error1', '', 100000);
+    $messages['sex1'] = '<p class="msg">Выберите пол</p>';
   }
-  if ($errors['gender2']) {
-    setcookie('gender_error2', '', 100000);
-    $messages['gender2'] = '<p class="msg">Выбран неизвестный пол</p>';
+  if ($errors['sex2']) {
+    setcookie('sex_error2', '', 100000);
+    $messages['sex2'] = '<p class="msg">Выбран неизвестный пол</p>';
   }
   if ($errors['hand1']) {
     setcookie('hand_error1', '', 100000);
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $values['name'] = empty($_COOKIE['name_value']) ? '' : $_COOKIE['name_value'];
   $values['email'] = empty($_COOKIE['email_value']) ? '' : $_COOKIE['email_value'];
   $values['year'] = empty($_COOKIE['year_value']) ? '' : $_COOKIE['year_value'];
-  $values['gender'] = empty($_COOKIE['gender_value']) ? '' : $_COOKIE['gender_value'];
+  $values['sex'] = empty($_COOKIE['sex_value']) ? '' : $_COOKIE['sex_value'];
   $values['hand'] = empty($_COOKIE['hand_value']) ? '' : $_COOKIE['hand_value'];
   $values['abilities'] = empty($_COOKIE['abilities_value']) ? '' : $_COOKIE['abilities_value'];
   $values['biography'] = empty($_COOKIE['biography_value']) ? '' : $_COOKIE['biography_value'];
@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $name = $_POST['name'];
   $email = $_POST['email'];
   $year = $_POST['year'];
-  $gender = $_POST['gender'];
+  $sex = $_POST['sex'];
   $hand = $_POST['hand'];
   if(isset($_POST["abilities"])) {
     $abilities = $_POST["abilities"];
@@ -134,14 +134,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     setcookie('year_value', $year, time() + 30 * 24 * 60 * 60);
   }
 
-  if (empty($gender)) {
-    setcookie('gender_error1', '1', time() + 24 * 60 * 60);
+  if (empty($sex)) {
+    setcookie('sex_error1', '1', time() + 24 * 60 * 60);
     $errors = TRUE;
-  } else if ($gender != 'male' && $gender != 'female') {
-    setcookie('gender_error2', '1', time() + 24 * 60 * 60);
+  } else if ($sex != 'male' && $sex != 'female') {
+    setcookie('sex_error2', '1', time() + 24 * 60 * 60);
     $errors = TRUE;
   } else {
-    setcookie('gender_value', $gender, time() + 30 * 24 * 60 * 60);
+    setcookie('sex_value', $sex, time() + 30 * 24 * 60 * 60);
   }
 
   if (empty($hand)) {
@@ -192,8 +192,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     setcookie('email_error2', '', 100000);
     setcookie('year_error1', '', 100000);
     setcookie('year_error2', '', 100000);
-    setcookie('gender_error1', '', 100000);
-    setcookie('gender_error2', '', 100000);
+    setcookie('sex_error1', '', 100000);
+    setcookie('sex_error2', '', 100000);
     setcookie('hand_error1', '', 100000);
     setcookie('hand_error2', '', 100000);
     setcookie('abilities_error1', '', 100000);
@@ -208,8 +208,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $db = new PDO('mysql:host=localhost;dbname=u52964', $user, $pass, array(PDO::ATTR_PERSISTENT => true));
 
   try {
-    $stmt = $db->prepare("INSERT INTO application (name, email, year, gender, hand, biography) VALUES (?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$name, $email, $year, $gender, $hand, $biography]);
+    $stmt = $db->prepare("INSERT INTO application (name, email, year, sex, hand, biography) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->execute([$name, $email, $year, $sex, $hand, $biography]);
     $application_id = $db->lastInsertId();
     $stmt = $db->prepare("INSERT INTO abilities (application_id, superpower_id) VALUES (?, ?)");
     foreach ($abilities as $superpower_id) {

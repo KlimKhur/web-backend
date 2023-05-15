@@ -10,15 +10,27 @@
 </head>
 <body>
   <?php
-    if (!empty($messages)) {
-      print('<div id="messages">');
-      foreach ($messages as $message) {
-        print($message);
-      }
-      print('</div>');
+  if (!empty($messages1['allok'])) {
+    print($messages1['allok']);
+  }
+  if (!empty($messages1['login'])) {
+    print($messages1['login']);
+  }
+  if (empty($_SESSION['login'])) {
+    ?>
+      <div id="header"><a href=login.php>Войти</a></div>
+    <?php
+  }
+  if (!empty($messages)) {
+    print('<div id="messages">');
+    foreach ($messages as $message) {
+      print($message);
     }
+    print('</div>');
+  }
   ?>
-  <form action="" method="POST">
+
+<form action="" method="POST">
     <div class="form-head">
         <h1>Форма</h1>
     </div>
@@ -50,11 +62,11 @@
       <div class="form-item">
         <ul>
           <li>
-            <input type="radio" id="radioMale" name="sex" value="male" <?php if ($values['sex'] == 'male') {print 'checked';} ?>>
+            <input type="radio" id="radioMale" name="gender" value="male" <?php if ($values['gender'] == 'male') {print 'checked';} ?>>
             <label for="radioMale">Мужчина</label>
           </li>
           <li>
-            <input type="radio" id="radioFemale" name="sex" value="female" <?php if ($values['sex'] == 'female') {print 'checked';} ?>>
+            <input type="radio" id="radioFemale" name="gender" value="female" <?php if ($values['gender'] == 'female') {print 'checked';} ?>>
             <label for="radioFemale">Женщина</label>
           </li>
         </ul>
